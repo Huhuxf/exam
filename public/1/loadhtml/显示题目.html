@@ -1,0 +1,370 @@
+  <div class="editingarea">
+     <div class="c_flex"><span class="c_flexible"></span></div>
+     <div class="c_editview">
+        <div class="c_condition">
+             <span><select><option>题干</option></select></span>
+             <span class="pl5 " ><input type="text"></span>
+             <span class="pl15 pr15 btn_gray ">查找</span>
+             <span class="icon_lead-in"><em class="icon_r">批量导入题目</em></span>
+             <span class="icon_add"><em class="icon_r">单个添加题目</em></span>
+        </div>
+        <div class="divtable">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tablea">
+                 <tr hidden>
+                      <td align="center">年份</td>
+                      <td align="left">
+                         <div class="chose">
+                           <a href="#" class="active3">全部</a>
+                           <a href="#">语文</a>
+                           <a href="#">数学</a>
+                           <a href="#">英语</a>
+                           <a href="#">政治</a>
+                         </div>
+                      </td>
+                 </tr>
+            </table>
+        </div>
+        <div class="Catalog">
+            这是题目上面的提示栏
+             <div class="Catalog_right">
+                    <div class="Catalogtitle">
+                       总计<em>15552</em>道题&nbsp;&nbsp;
+                       提示：单击体面可显示答案和解析&nbsp;&nbsp;
+                       <input type="checkbox" >
+                       <b>显示答案和解析</b>&nbsp;&nbsp;
+                       <a href="#" class="Thispage">本页全部试题加入试卷</a>
+                       <div><i>1</i>
+                            <a href="#" class="pageone">前</a>
+                            <a href="#" class="pagetwo">后</a>
+                       </div>
+                    </div>
+                  
+                    <div class="Catalog_rightnei" hidden="hidden">
+                        <div class="Catalogtitwo">
+                          题号：25544&nbsp;&nbsp;
+                          题型：&nbsp;&nbsp;
+                          难度：订餐&nbsp;&nbsp;
+                          上传人：女性司机&nbsp;&nbsp;
+                          来源：才能使得&nbsp;&nbsp;
+                          上传时间:220255&nbsp;&nbsp;
+                          组卷次数：<em>0</em></div>
+                        <div class="Catalogcontent">
+                            <div class="Catalogcontentup">题型</div>
+                            <div class="Catalogcontentdown box1">
+                                <a href="#" class="che">审核通过</a>
+                                <a href="#" class="unche">审核不通过</a>
+                                <a href="#" class="del">删除题目</a>
+                            </div>
+                             <div class="Catalogcontentdown box2">
+                                <a href="#">加入试卷</a>
+                             </div>  
+
+                        </div>
+                    </div>
+                                                     
+            </div>
+        </div>
+     </div>
+     <div class="clear"></div>    
+ </div> 
+ 
+ <script type="text/javascript">
+	 $(function(){
+		 //获取类型数据
+		 	  
+	    $.getJSON("subject/type",function(data){
+		 	  	//console.log(data);
+			  //克隆一份
+			 var newTr=$(".divtable tr:hidden").clone();
+			  //显示
+		     newTr.removeAttr("hidden");
+			  //
+		     newTr.find(".chose").html("");
+		     newTr.children("td").eq(0).html("类型");  
+		     data.forEach(function(item,index){
+				  //console.log(item.realName);
+				  var a = "";
+				  if(index==0){
+				      a=$("<a href='javascript:void(0)' id="+item.id+" name="+item.name+" class='active3'>"+item.realName+"</a>")
+				  //console.log(a);
+				  }else{
+					  a=$("<a href='javascript:void(0)' id="+item.id+" name="+item.name+">"+item.realName+"</a>")
+				  }
+					newTr.find(".chose").append(a);	  
+	    	 })
+			 $(".tablea").append(newTr);
+	    })
+				
+			
+		//获取level数据
+		
+		$.getJSON("subject/level",function(data){
+			var newTr=$(".divtable tr:hidden").clone();
+			newTr.removeAttr("hidden");
+			newTr.find(".chose").html("");
+			newTr.children("td").eq(0).html("难易程度");
+			data.forEach(function(item,index){
+				var a="";
+				if(index==0){
+					a=$("<a href='javascript:void(0)' id="+item.id+" name="+item.realName+" class='active3'>"+item.realName+"</a>")
+					}else{
+					a=$("<a href='javascript:void(0)' id="+item.id+" name="+item.name+">"+item.realName+"</a>")}
+					newTr.find(".chose").append(a);
+				})
+				
+				$(".tablea").append(newTr);
+			})	
+		
+		//获取方向数据	
+		
+		$.getJSON("subject/department",function(data){
+			var newTr=$(".divtable tr:hidden").clone();
+			newTr.removeAttr("hidden");
+			newTr.find(".chose").html("");
+			newTr.children("td").eq(0).html("方向");
+			data.forEach(function(item,index){
+				var a="";
+				if(index==0){
+					a=$("<a href='javascript:void(0)' id="+item.id+" name="+item.name+" class='active3'>"+item.name+"</a>")
+					}else{
+					a=$("<a href='javascript:void(0)' id="+item.id+" name="+item.name+">"+item.name+"</a>")	
+					}
+					newTr.find(".chose").append(a);
+				})
+				
+				$(".tablea").append(newTr);
+			})	
+		
+
+		//获取知识点数据		
+		$.getJSON("subject/topic",function(data){
+			var newTr=$(".divtable tr:hidden").clone();
+			newTr.removeAttr("hidden");
+			newTr.find(".chose").html("");
+			newTr.children("td").eq(0).html("知识点");
+			data.forEach(function(item,index){
+				var a="";
+				if(index==0){
+					a=$("<a href='javascript:void(0)' id="+item.id+" class='active3'>"+item.title+"</a>")
+					}
+				else{
+		            a=$("<a href='javascript:void(0)' id="+item.id+">"+item.title+"</a>")	
+		        }
+					newTr.find(".chose").append(a);
+			})
+			$(".tablea").append(newTr);
+		})	
+		
+	
+		//点击单个添加题目，跳进去添加题目的界面
+		$(".c_condition .icon_add").click(function(){
+			$(".right").load("1/loadhtml/addSubject.html");
+		})
+
+
+	    //给所有的a绑定一个click事件，并拿到选中的id，发送到后台
+		// var arr=new Array();
+		$(".tablea").off("click");
+		$(".tablea").on("click","a",function(){
+			$(this).addClass("active3").siblings().removeClass("active3");				
+				//选中a标签
+			/*拿到四个,并向后台发送四个id*/
+            var arr = $('.tablea tbody tr td div a.active3').get();
+            console.log(arr);
+            var type='';
+            var direct='';
+            var level='';
+            var topic='';
+          /*拿到四个选项的id*/
+        arr.forEach(function(item,index){
+          	var word = $(item).parent().parent().parent().children().eq(0).html();
+              switch(word){
+                case '类型':type=$(item).attr("id");
+                  break; 
+                case '难易程度':level=$(item).attr("id");
+                  break;
+                case '方向':direct=$(item).attr("id");
+                  break;
+                case '知识点':topic=$(item).attr("id");
+                  break;
+              }
+        })
+
+			//将选中的题目的四个Id发送到后台
+			// console.log(type);
+			// console.log(direct);
+			// console.log(level);
+			// console.log(topic);
+			$.ajax('subject/showSubject',{
+              method:"post",
+             //携带的数据
+             data:{
+               "subject.department.id":direct,
+               "subject.topic.id":topic,
+               "subject.subjectType.id":type,
+               "subject.subjectLevel.id":level,
+             },
+             //成功之后将获取到的后台的题目展示在页面上
+             success:function(data){
+                showData(data);
+                check();
+              }
+             });	
+            
+    
+		});
+
+
+        //点击显示和隐藏，对应的解析隐藏和出现
+		$(".Catalogtitle input:checkbox").on("click",function(){
+			if($(this).prop("checked")){
+				$(".append").show();
+			}else{
+				$(".append").hide();
+			}
+		})
+                        
+        
+	});
+
+
+ function showData(data){
+	// console.log(data);
+	$(".Catalogtitle").find("em").html(data.length);
+    $(".Catalog_rightnei:not(:hidden)").remove();
+	data.forEach(function(item){
+		var newDiv = $(".Catalog_rightnei:hidden").clone();
+		newDiv.removeAttr("hidden");
+		$(".Catalog_right").append(newDiv);
+		newDiv.find(".Catalogcontentup").html("");
+		var subject_id = $("<span id="+item.id+">"+item.id+"</span>");
+		console.log(subject_id);
+		var stemOne = $("<span>"+item.stem+"</span>");
+		newDiv.find(".Catalogcontentup").append(stemOne);
+		newDiv.find(".box2").css("display","none");
+
+
+		switch(item.subjectType_id){
+			case 1:
+			    var id=item.id;
+			   // var id=2;
+			  $.getJSON("subject/showChoice?id="+id,function(data){
+			  	 console.log(data);
+			  	data.forEach(function(item,index){
+			  		// console.log(data)
+
+			  		var div_1 = $("<div></div>");
+			  		// var rid_1 = $("<input type='radio' name="+item['id']+" id="+item['id']+">");
+                	var index = convertToNo(index);
+
+                    var cho_1;
+                   //object
+                    if(item.correct == 1){
+          
+                       cho_1= $("<span style='position:float;margin-left:20px;margin-right:20px;color:red'>"+index+"."+item['content']+"</span>");
+                    }else{
+                    	
+                       cho_1= $("<span style='position:float;margin-left:20px;margin-right:20px'>"+index+"."+item['content']+"</span>");
+                    }
+                    // div_1.append(rid_1);
+                    div_1.append(cho_1);
+		            newDiv.find(".Catalogcontentup").append(div_1);
+
+			  	})
+			  })
+			  break;
+			case 2:
+                var id=item.id;
+                $.getJSON("subject/showChoice?id="+id,function(data){
+                	data.forEach(function(item,index){
+                		// console.log(data);
+                		var div_1 = $("<div></div>");
+                		var index = convertToNo(index);
+                		if(item.correct == 1){
+          
+                            cho_1= $("<span style='position:float;margin-left:20px;margin-right:20px;color:red'>"+index+""+item['content']+"</span>");
+                        }else{
+                    	
+                           cho_1= $("<span style='position:float;margin-left:20px;margin-right:20px'>"+index+"."+item['content']+"</span>");
+                        }
+                        // var answer = $("<span style='color:red'>"+item.answer+"</span>");
+                	
+                		div_1.append(cho_1);
+                		newDiv.find(".Catalogcontentup").append(div_1);
+                	});
+                });
+            case 3:
+                var div_1 = $("<div><div>");
+                var answer = $("<span style='color:red'>"+item.answer+"</span>");
+                div_1.append(answer);
+                newDiv.find(".Catalogcontentup").append(div_1);
+            
+        }
+        var div_2 = $("<div class='append' style='display:none;position:absolute;margin-top:80px;'></div>")
+        var analysis = $("<span style='color:red'>解析:"+item['analysis']+"</span>");
+        div_2.append(analysis);
+        newDiv.find(".Catalogcontentup").append(div_2);
+
+
+        
+        // var checked = $(".Catalogtitle input:checkbox:checked");
+        // console.log(checked);
+
+        //题目id
+            var id = item.id
+             //给每一个标签设置和题目相同的id,但是属性名不能为id
+            newDiv.find("a.che").each(function(item,itemx){
+              $(itemx).attr("cheid",id);
+              
+            });
+            newDiv.find("a.unche").each(function(item,itemx){
+              $(itemx).attr("uncheid",id);
+            });
+            newDiv.find("a.del").each(function(item,itemx){
+              $(itemx).attr("delid",id);
+            });
+                
+	})	
+ }			
+		
+		
+			
+	//审核通过 审核不通过 删除题目
+    function check(){
+    $(".Catalog").on("click","a",function(){
+        switch($(this).html()){
+          case "审核通过":
+            $.post("subject/checkedSubject",{
+              "id":$(this).attr("cheid"),
+              "checkState":"通过"
+            })
+            //发送完以后隐藏标签，显示加入试卷
+            $(this).parent().css("display","none");
+            $(this).parent().next().css("display","block");
+            break;
+          case "审核不通过":
+            $.post("subject/checkedSubject",{
+              "id":$(this).attr("uncheid"),
+              "checkState":"不通过"
+              })
+            break;
+          case "删除题目":
+            $.post("subject/deleteSubject",{
+              "id":$(this).attr("delid")
+              })
+            break;
+          }   
+      })
+  }
+  function convertToNo(index){
+    return index==0?'A':(index==1?'B':(index==2?'C':'D'));
+  }
+		
+</script>  
+ 
+
+
+
+
+
+  
